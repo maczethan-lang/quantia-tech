@@ -153,6 +153,15 @@
     "source": "https://commons.wikimedia.org/w/index.php?curid=177358655"
   },
   {
+    "file": "pcgamer-3.jpg",
+    "title": "ATX computer case",
+    "creator": "Tiia Monto",
+    "creator_url": "https://commons.wikimedia.org/wiki/User:Kulmalukko",
+    "license": "by-sa",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/w/index.php?curid=75492264"
+  },
+  {
     "file": "pcoficina-3.jpg",
     "title": "Secretary's Computer",
     "creator": "Accretion Disc",
@@ -181,21 +190,21 @@
   },
   {
     "file": "mouse-4.jpg",
-    "title": "Desk - 1st September '09",
+    "title": "Computer Mouse Isolated on White Background",
+    "creator": "Trostle",
+    "creator_url": "https://www.flickr.com/photos/42183150@N00",
+    "license": "by",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "https://www.flickr.com/photos/42183150@N00/6848810640"
+  },
+  {
+    "file": "gpu-4.jpg",
+    "title": "Sapphire ATI Radeon HD 4550 GPU",
     "creator": "William Hook",
     "creator_url": "https://www.flickr.com/photos/83542829@N00",
     "license": "by-sa",
     "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
-    "source": "https://www.flickr.com/photos/83542829@N00/3879619430"
-  },
-  {
-    "file": "gpu-4.jpg",
-    "title": "Broken Nvidia GeForce 4 Ti : Broken GPU Chip 3/4",
-    "creator": "qubodup",
-    "creator_url": "https://www.flickr.com/photos/21051491@N02",
-    "license": "cc0",
-    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "source": "https://www.flickr.com/photos/21051491@N02/8279097320"
+    "source": "https://www.flickr.com/photos/83542829@N00/3570060270"
   },
   {
     "file": "ram-2.jpg",
@@ -271,21 +280,21 @@
   },
   {
     "file": "mouse-3.jpg",
-    "title": "Microsoft Notebook Optical Mouse 3000 (side)",
-    "creator": "liewcf",
-    "creator_url": "https://www.flickr.com/photos/34353636@N00",
-    "license": "by-sa",
-    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
-    "source": "https://www.flickr.com/photos/34353636@N00/268421712"
+    "title": "Black Computer Mouse on Table",
+    "creator": "dejankrsmanovic",
+    "creator_url": "https://www.flickr.com/photos/155403590@N07",
+    "license": "by",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "https://www.flickr.com/photos/155403590@N07/33218207918"
   },
   {
     "file": "gpu-3.jpg",
-    "title": "PC Assembling",
-    "creator": "flickrsven",
-    "creator_url": "https://www.flickr.com/photos/9665215@N02",
-    "license": "by",
-    "license_url": "https://creativecommons.org/licenses/by/2.0/",
-    "source": "https://www.flickr.com/photos/9665215@N02/4821388277"
+    "title": "ASUS GTX-650 Ti TOP Cu-II PCI Express 3.0 x16 graphics card",
+    "creator": "Dsimic",
+    "creator_url": "https://en.wikipedia.org/wiki/User:Dsimic",
+    "license": "by-sa",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/w/index.php?curid=39533096"
   },
   {
     "file": "monitor-4.jpg",

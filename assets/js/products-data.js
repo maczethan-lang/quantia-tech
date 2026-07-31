@@ -162,7 +162,7 @@
     },
     {
       id: "pc-gamer", catLabel: "PC Gamer", prefix: "PC Gamer",
-      image: ["desktop-gaming.jpg", "pcgamer-2.jpg"],
+      image: ["desktop-gaming.jpg", "pcgamer-2.jpg", "pcgamer-3.jpg"],
       priceMin: 5999, priceMax: 20999,
       models: ["Titan Gaming I", "Titan Gaming II", "Inferno RGB", "Inferno Pro", "Vulcan Core i5", "Vulcan Core i7", "Vulcan Core i9", "Raptor Strike", "Raptor Elite", "Cyclone RGB", "Cyclone Pro", "Warlord Basic", "Warlord Ultra", "Nebula Gamer", "Nebula Extreme", "Phantom RGB", "Phantom X", "Apex Gamer", "Apex Pro", "Apex Ultra"],
       desc: [
