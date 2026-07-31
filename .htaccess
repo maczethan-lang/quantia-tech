@@ -1,0 +1,25 @@
+# Quantia Tech - configuración básica de servidor estático
+
+# Compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml
+</IfModule>
+
+# Cache corto para HTML (para que las actualizaciones se vean rápido)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|gif|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# Página de error 404 personalizada (opcional, usa index si no existe)
+ErrorDocument 404 /index.html
+
+# Evitar listado de directorios
+Options -Indexes
