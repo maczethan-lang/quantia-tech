@@ -82,8 +82,8 @@
     function update() {
       var scrollTop = window.scrollY || document.documentElement.scrollTop;
       var height = document.documentElement.scrollHeight - window.innerHeight;
-      var pct = height > 0 ? (scrollTop / height) * 100 : 0;
-      bar.style.width = pct + "%";
+      var pct = height > 0 ? scrollTop / height : 0;
+      bar.style.transform = "scaleX(" + pct + ")";
     }
     window.addEventListener("scroll", update, { passive: true });
     update();
