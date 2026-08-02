@@ -27,6 +27,18 @@
     return m ? m[0] : fallback;
   }
 
+  /* La marca sale de la lista de la categoría, rotando por índice. Las tarjetas de
+     video son la excepción: su modelo ya indica el fabricante del chip, así que se
+     deduce con brandRules en lugar de asignar una marca de la casa. */
+  function brandFor(def, model, i) {
+    if (def.brandRules) {
+      for (var r = 0; r < def.brandRules.length; r++) {
+        if (def.brandRules[r][0].test(model)) return def.brandRules[r][1];
+      }
+    }
+    return def.brands[i % def.brands.length];
+  }
+
   /* -------------------------------- Generación de specs por categoría -------------------------------- */
 
   var SPEC_BUILDERS = {
@@ -132,15 +144,17 @@
       price = Math.round(price / 10) * 10 - 1;
       var image = Array.isArray(def.image) ? def.image[i % def.image.length] : def.image;
       var specBuilder = SPEC_BUILDERS[def.id];
+      var brand = brandFor(def, model, i);
       products.push({
         id: idify(def.id, model),
         cat: def.id,
         catLabel: def.catLabel,
+        brand: brand,
         image: IMG + image,
         name: name,
         desc: def.desc[i % def.desc.length],
         price: price,
-        specs: specBuilder ? specBuilder(name, i, n) : [],
+        specs: [["Marca", brand]].concat(specBuilder ? specBuilder(name, i, n) : []),
       });
     }
     return products;
@@ -149,6 +163,7 @@
   var CATEGORY_DEFS = [
     {
       id: "laptops", catLabel: "Laptops", prefix: "Laptop",
+      brands: ["Vantek", "Corvex", "Lumina", "Aureus"],
       image: ["laptop-general.jpg", "laptop-gaming.jpg", "hero-laptop.jpg", "laptop-2.jpg", "laptop-3.jpg", "laptop-4.jpg"],
       priceMin: 3499, priceMax: 13499,
       models: ["Zenith 14 Ultra", "Vortex Gamer 15", "AirLite 13", "Nimbus Pro 14", "Nimbus Air 13", "Orion X1 14", "Orion X2 15", "Falcon Elite 15", "Falcon Slim 14", "Atlas Work 15", "Atlas Study 14", "Nova Creator 16", "Nova Basic 14", "Quantum Ultra 15", "Quantum Mini 13", "Drift Book 14", "Drift Pro 15", "Halo Convertible 14", "Halo Slim 13", "Titan Mobile 17"],
@@ -162,6 +177,7 @@
     },
     {
       id: "pc-gamer", catLabel: "PC Gamer", prefix: "PC Gamer",
+      brands: ["Quantia", "Corvex", "Kaido", "Zephyr"],
       image: ["desktop-gaming.jpg", "pcgamer-2.jpg", "pcgamer-3.jpg"],
       priceMin: 5999, priceMax: 20999,
       models: ["Titan Gaming I", "Titan Gaming II", "Inferno RGB", "Inferno Pro", "Vulcan Core i5", "Vulcan Core i7", "Vulcan Core i9", "Raptor Strike", "Raptor Elite", "Cyclone RGB", "Cyclone Pro", "Warlord Basic", "Warlord Ultra", "Nebula Gamer", "Nebula Extreme", "Phantom RGB", "Phantom X", "Apex Gamer", "Apex Pro", "Apex Ultra"],
@@ -175,6 +191,7 @@
     },
     {
       id: "pc-oficina", catLabel: "PC de Oficina", prefix: "PC Oficina",
+      brands: ["Quantia", "Vantek", "Nexbit"],
       image: ["desktop-office.jpg", "pcoficina-3.jpg", "pcoficina-4.jpg"],
       priceMin: 2799, priceMax: 7799,
       models: ["Nova Lite", "Nova Plus", "Work Station I", "Work Station II", "Compacta i3", "Compacta i5", "Business Mini", "Business Tower", "Escritorio Pro I", "Escritorio Pro II", "Essential 1", "Essential 2", "Modular A", "Modular B", "Silent Office", "Slim Desk", "Study Basic", "Study Plus", "Admin Tower", "Admin Mini"],
@@ -188,6 +205,7 @@
     },
     {
       id: "monitores", catLabel: "Monitores", prefix: "Monitor",
+      brands: ["Lumina", "Vantek", "Aureus", "Nexbit"],
       image: ["monitor-curved.jpg", "monitor-desk.jpg", "monitor-4.jpg", "monitor-5.jpg"],
       priceMin: 899, priceMax: 5199,
       models: ["24\" FHD", "27\" FHD", "Curvo 27\" QHD", "Curvo 32\" QHD", "4K 27\"", "4K 32\"", "Gamer 144Hz 24\"", "Gamer 165Hz 27\"", "IPS 24\"", "IPS 27\"", "Ultrawide 29\"", "Ultrawide 34\"", "Portátil 15\"", "Vertical 24\"", "Oficina 22\"", "Diseño 27\" 4K", "Curvo 27\" 165Hz", "Económico 21\"", "Profesional 32\"", "Dual Pack 24\""],
@@ -201,6 +219,7 @@
     },
     {
       id: "teclados", catLabel: "Teclados", prefix: "Teclado",
+      brands: ["Kaido", "Nexbit", "Zephyr", "Quantia"],
       image: ["keyboard-mechanical.jpg", "teclado-3.jpg", "teclado-4.jpg"],
       priceMin: 179, priceMax: 819,
       models: ["Mecánico Aurora", "Mecánico Nova", "Membrana Basic", "Inalámbrico Slim", "RGB Pro", "TKL Compacto", "Silencioso Office", "Numérico Extra", "Ergonómico Split", "60% Mini", "Retroiluminado Blanco", "Switch Rojo", "Switch Azul", "Switch Marrón", "Gamer Compacto", "Bluetooth Multi", "Recargable", "Antiderrame", "Membrana RGB", "Full Size Pro"],
@@ -214,6 +233,7 @@
     },
     {
       id: "mouse", catLabel: "Mouse", prefix: "Mouse",
+      brands: ["Kaido", "Zephyr", "Nexbit", "Quantia"],
       image: ["mouse-wireless.jpg", "mouse-2.jpg", "mouse-3.jpg", "mouse-4.jpg"],
       priceMin: 119, priceMax: 649,
       models: ["Precision Pro", "Gamer RGB", "Inalámbrico Slim", "Ergonómico", "Vertical", "Óptico Basic", "Bluetooth Silencioso", "Gamer Ultraligero", "6 Botones", "Recargable USB-C", "Simétrico", "Zurdo", "Oficina Compacto", "Alta Precisión 16K", "Dual Mode", "Trackball", "Mini Portátil", "RGB Programable", "Gamer Wireless Pro", "Clásico USB"],
@@ -227,6 +247,8 @@
     },
     {
       id: "tarjetas-video", catLabel: "Tarjetas de Video", prefix: "Tarjeta de Video",
+      brands: ["NVIDIA"],
+      brandRules: [[/RTX|GTX/i, "NVIDIA"], [/\bRX\b/i, "AMD"], [/Arc/i, "Intel"]],
       image: ["gpu-card.jpg", "gpu-3.jpg", "gpu-4.jpg"],
       priceMin: 1799, priceMax: 13999,
       models: ["RTX 4060 8GB", "RTX 4060 Ti 8GB", "RTX 4070 12GB", "RTX 4070 Ti 12GB", "RTX 4080 16GB", "RTX 4090 24GB", "RX 7600 8GB", "RX 7700 XT 12GB", "RX 7800 XT 16GB", "RX 7900 XT 20GB", "GTX 1660 Super 6GB", "RTX 3050 8GB", "RTX 3060 12GB", "RTX 3060 Ti 8GB", "RTX 3070 8GB", "Arc A750 8GB", "Arc A770 16GB", "RTX 4060 Low Profile", "RX 6600 8GB", "RX 6650 XT 8GB"],
@@ -240,6 +262,7 @@
     },
     {
       id: "memoria-ram", catLabel: "Memoria RAM", prefix: "Memoria RAM",
+      brands: ["Corvex", "Nexbit", "Vantek"],
       image: ["ram-module.jpg", "ram-2.jpg", "ram-3.jpg", "ram-4.jpg"],
       priceMin: 249, priceMax: 2399,
       models: ["DDR4 8GB", "DDR4 16GB (2x8)", "DDR4 32GB (2x16)", "DDR5 16GB (2x8)", "DDR5 32GB (2x16)", "DDR5 64GB (2x32)", "DDR4 8GB SODIMM", "DDR4 16GB SODIMM", "DDR5 16GB SODIMM", "DDR5 32GB SODIMM", "DDR4 16GB RGB", "DDR5 32GB RGB", "DDR4 16GB 3200MHz", "DDR5 32GB 6000MHz", "DDR4 8GB 2666MHz", "DDR5 16GB 5200MHz", "DDR4 16GB Low Profile", "DDR5 48GB (2x24)", "DDR4 64GB (2x32)", "DDR5 96GB (2x48)"],
@@ -253,6 +276,7 @@
     },
     {
       id: "almacenamiento", catLabel: "Almacenamiento", prefix: "",
+      brands: ["Nexbit", "Corvex", "Aureus", "Vantek"],
       image: ["ssd-drive.jpg", "almacenamiento-2.jpg", "almacenamiento-3.jpg", "almacenamiento-4.jpg"],
       priceMin: 149, priceMax: 2799,
       models: ["SSD SATA 256GB", "SSD SATA 512GB", "SSD SATA 1TB", "SSD NVMe 256GB", "SSD NVMe 512GB", "SSD NVMe 1TB", "SSD NVMe 2TB", "SSD NVMe 4TB", "SSD Externo 512GB", "SSD Externo 1TB", "HDD 1TB", "HDD 2TB", "HDD 4TB", "HDD Externo 1TB", "HDD Externo 2TB", "SSD M.2 Gen4 1TB", "SSD M.2 Gen4 2TB", "MicroSD 128GB", "MicroSD 256GB", "USB Flash 128GB"],
@@ -266,6 +290,7 @@
     },
     {
       id: "audifonos", catLabel: "Audífonos", prefix: "",
+      brands: ["Kaido", "Zephyr", "Lumina", "Quantia"],
       image: ["headset.jpg", "audifonos-2.jpg", "audifonos-3.jpg", "audifonos-4.jpg"],
       priceMin: 179, priceMax: 1599,
       models: ["Headset Gamer RGB", "Headset Inalámbrico", "Audífonos Bluetooth", "Audífonos Estudio", "Headset 7.1 Surround", "Audífonos In-Ear", "Audífonos Over-Ear", "Headset con Micrófono", "Audífonos Deportivos", "Audífonos Cancelación de Ruido", "Headset Económico", "Audífonos Gamer Wireless", "Headset Oficina", "Audífonos True Wireless", "Headset RGB Pro", "Audífonos Plegables", "Headset USB", "Audífonos Bass Boost", "Headset Ultraligero", "Audífonos Recargables"],
@@ -287,5 +312,20 @@
     CATEGORY_DEFS.map(function (d) { return { id: d.id, label: d.catLabel }; })
   );
 
-  window.QuantiaData = { PRODUCTS: PRODUCTS, CATEGORIES: CATEGORIES, CATEGORY_DEFS: CATEGORY_DEFS };
+  var BRANDS = PRODUCTS.reduce(function (acc, p) {
+    if (acc.indexOf(p.brand) === -1) acc.push(p.brand);
+    return acc;
+  }, []).sort();
+
+  var PRICE_RANGE = PRODUCTS.reduce(function (acc, p) {
+    return { min: Math.min(acc.min, p.price), max: Math.max(acc.max, p.price) };
+  }, { min: Infinity, max: 0 });
+
+  window.QuantiaData = {
+    PRODUCTS: PRODUCTS,
+    CATEGORIES: CATEGORIES,
+    CATEGORY_DEFS: CATEGORY_DEFS,
+    BRANDS: BRANDS,
+    PRICE_RANGE: PRICE_RANGE,
+  };
 })();
