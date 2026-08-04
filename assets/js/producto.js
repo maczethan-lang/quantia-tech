@@ -52,12 +52,14 @@
       ["Garantía", garantia + " por defectos de fábrica"],
     ];
 
+    // <dl> en vez de <ul>: dt y dd son de bloque, así que aunque el CSS no
+    // cargue el rótulo y su valor nunca quedan pegados en la misma línea.
     return (
-      '<ul class="purchase-info">' +
+      '<dl class="purchase-info">' +
         items.map(function (i) {
-          return "<li><span>" + i[0] + "</span><span>" + i[1] + "</span></li>";
+          return '<div class="purchase-row"><dt>' + i[0] + "</dt><dd>" + i[1] + "</dd></div>";
         }).join("") +
-      "</ul>"
+      "</dl>"
     );
   }
 
