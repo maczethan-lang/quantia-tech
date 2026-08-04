@@ -678,6 +678,134 @@ section { padding: 96px 0; }
 .credits-list li { font-size: .88rem; padding: 12px 0; border-bottom: 1px solid var(--border); }
 .credits-list a { text-decoration: underline; text-underline-offset: 2px; }
 
+/* ---------------------------------- Barra de confianza ---------------------------------- */
+
+.trust-bar { background: var(--paper); border-bottom: 1px solid var(--border); }
+.trust-bar ul {
+  list-style: none; margin: 0; padding: 26px 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+}
+.trust-bar li { display: flex; align-items: flex-start; gap: 12px; }
+.trust-bar svg { width: 22px; height: 22px; color: var(--copper); flex-shrink: 0; margin-top: 2px; }
+.trust-bar strong { display: block; font-size: .88rem; color: var(--ink); line-height: 1.35; }
+.trust-bar span { display: block; font-size: .78rem; color: var(--ink-soft); margin-top: 2px; }
+
+/* ---------------------------------- Carrito: desglose ---------------------------------- */
+
+.cart-summary { margin-bottom: 18px; }
+.cart-summary-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-mono); font-size: .84rem;
+  color: var(--ink-soft);
+  padding: 5px 0;
+}
+.cart-summary-row.is-total {
+  margin-top: 8px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 1.1rem; font-weight: 700; color: var(--ink);
+}
+.cart-free { font-style: normal; color: var(--sage); font-weight: 700; }
+.cart-shipping-hint {
+  margin: 6px 0 0; padding: 8px 10px;
+  background: rgba(168,103,46,.08);
+  border-radius: var(--radius-sm);
+  font-size: .74rem; color: var(--copper-deep);
+}
+
+/* ---------------------------------- Ficha: cómo comprar ---------------------------------- */
+
+.purchase-info {
+  list-style: none; margin: 26px 0 0; padding: 20px 22px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: grid; gap: 12px;
+}
+.purchase-info li { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; }
+.purchase-info li span:first-child {
+  font-family: var(--font-mono); font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft);
+  flex-shrink: 0;
+}
+.purchase-info li span:last-child { font-size: .86rem; color: var(--ink); text-align: right; }
+
+/* ---------------------------------- Formulario de contacto ---------------------------------- */
+
+.contact-form {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+}
+.contact-form h3 { margin-bottom: 6px; }
+.contact-form-intro { font-size: .9rem; margin-bottom: 24px; }
+
+.form-row { margin-bottom: 18px; display: flex; flex-direction: column; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row label {
+  font-family: var(--font-mono); font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink); margin-bottom: 7px;
+}
+.form-optional { text-transform: none; letter-spacing: 0; color: var(--ink-soft); font-weight: 400; }
+.form-row input, .form-row select, .form-row textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-family: var(--font-body); font-size: .9rem; color: var(--ink);
+  transition: border-color .18s ease;
+}
+.form-row textarea { resize: vertical; min-height: 110px; }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+  outline: none; border-color: var(--copper);
+}
+.form-row input.is-invalid, .form-row select.is-invalid, .form-row textarea.is-invalid {
+  border-color: #b4402f; background: rgba(180,64,47,.04);
+}
+.form-error { font-size: .76rem; color: #b4402f; margin-top: 6px; min-height: 1em; }
+.form-error:empty { min-height: 0; margin-top: 0; }
+.form-note { font-size: .74rem; color: var(--ink-soft); text-align: center; margin: 14px 0 0; }
+
+.contact-form.is-sent > *:not([data-form-success]) { opacity: .25; pointer-events: none; }
+.form-success {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; padding: 30px; text-align: center;
+  background: var(--paper);
+  border-radius: var(--radius);
+}
+.form-success-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--sage); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 4px;
+}
+.form-success h4 { margin: 0; font-size: 1.15rem; }
+.form-success p { margin: 0 0 8px; font-size: .9rem; max-width: 340px; }
+
+/* ---------------------------------- Página 404 ---------------------------------- */
+
+.error-page { text-align: center; padding: 110px 0 120px; }
+.error-code {
+  display: block;
+  font-family: var(--font-mono); font-size: 4.6rem; font-weight: 700;
+  color: var(--copper); line-height: 1; margin-bottom: 14px;
+}
+.error-page h1 { margin-bottom: 12px; }
+.error-page > .container > p { max-width: 520px; margin: 0 auto 30px; }
+.error-page .cta-actions { justify-content: center; }
+.error-suggestions { margin-top: 54px; padding-top: 34px; border-top: 1px solid var(--border); }
+.error-suggestions-title {
+  font-family: var(--font-mono); font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.error-suggestions .filter-chips { justify-content: center; }
+.error-suggestions .chip::after { display: none; }
+
 /* ---------------------------------- Buscador global (lupa) ---------------------------------- */
 
 .search-overlay {
@@ -1001,6 +1129,7 @@ section { padding: 96px 0; }
 }
 
 @media (max-width: 980px) {
+  .trust-bar ul { grid-template-columns: 1fr 1fr; gap: 20px; }
   .hero-grid, .about-grid, .contact-grid, .product-detail { grid-template-columns: 1fr; }
   .hero .photo-frame { max-width: 440px; margin: 0 auto; aspect-ratio: 4/3; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -1009,6 +1138,12 @@ section { padding: 96px 0; }
 }
 
 @media (max-width: 720px) {
+  .trust-bar ul { grid-template-columns: 1fr; gap: 16px; padding: 22px 0; }
+  .form-grid { grid-template-columns: 1fr; gap: 0; }
+  .contact-form { padding: 24px 20px; }
+  .purchase-info li { flex-direction: column; gap: 3px; }
+  .purchase-info li span:last-child { text-align: left; }
+  .error-code { font-size: 3.4rem; }
   .nav-links { display: none; }
   .nav-toggle { display: flex; align-items: center; justify-content: center; }
   section { padding: 68px 0; }

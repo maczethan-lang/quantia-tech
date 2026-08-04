@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contacto y Ubicación | Quantia Tech</title>
 <meta name="description" content="Contacto y ubicación de Quantia Tech en Zona 10, Ciudad de Guatemala, cerca de Universidad Galileo.">
+<link rel="canonical" href="https://maczethan-lang.github.io/quantia-tech/contacto.html">
+<meta name="theme-color" content="#211b17">
+<meta name="author" content="Ethan Macz">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Quantia Tech">
+<meta property="og:locale" content="es_GT">
+<meta property="og:title" content="Contacto y Ubicación | Quantia Tech">
+<meta property="og:description" content="Contacto y ubicación de Quantia Tech en Zona 10, Ciudad de Guatemala, cerca de Universidad Galileo.">
+<meta property="og:url" content="https://maczethan-lang.github.io/quantia-tech/contacto.html">
+<meta property="og:image" content="https://maczethan-lang.github.io/quantia-tech/assets/img/products/hero-banner.jpg">
+<meta property="og:image:width" content="1023">
+<meta property="og:image:height" content="509">
+<meta property="og:image:alt" content="Espacio de trabajo con equipo de cómputo de Quantia Tech">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contacto y Ubicación | Quantia Tech">
+<meta name="twitter:description" content="Contacto y ubicación de Quantia Tech en Zona 10, Ciudad de Guatemala, cerca de Universidad Galileo.">
+<meta name="twitter:image" content="https://maczethan-lang.github.io/quantia-tech/assets/img/products/hero-banner.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23211b17'/%3E%3Ccircle cx='26' cy='26' r='13' fill='none' stroke='%23ede6d8' stroke-width='6'/%3E%3Cline x1='34' y1='34' x2='45' y2='45' stroke='%23a8672e' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='47' cy='47' r='4' fill='%23a8672e'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/css/styles.css?v=20260731b">
 </head>
@@ -115,6 +132,61 @@
       </div>
 
       <div class="reveal">
+        <form class="contact-form" data-contact-form novalidate>
+          <h3>Envíanos un mensaje</h3>
+          <p class="contact-form-intro">Cuéntanos qué necesitas y te respondemos con una recomendación.</p>
+
+          <div class="form-row">
+            <label for="cf-nombre">Nombre completo</label>
+            <input type="text" id="cf-nombre" name="nombre" autocomplete="name" required>
+            <span class="form-error" data-error-for="cf-nombre"></span>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="cf-email">Correo electrónico</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" required>
+              <span class="form-error" data-error-for="cf-email"></span>
+            </div>
+            <div class="form-row">
+              <label for="cf-telefono">Teléfono <span class="form-optional">(opcional)</span></label>
+              <input type="tel" id="cf-telefono" name="telefono" autocomplete="tel" placeholder="+502 0000-0000">
+              <span class="form-error" data-error-for="cf-telefono"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="cf-asunto">¿En qué te ayudamos?</label>
+            <select id="cf-asunto" name="asunto" required>
+              <option value="">Selecciona una opción</option>
+              <option>Asesoría para elegir un equipo</option>
+              <option>Consulta sobre un producto del catálogo</option>
+              <option>Cotización para empresa o institución</option>
+              <option>Soporte o garantía</option>
+              <option>Otro</option>
+            </select>
+            <span class="form-error" data-error-for="cf-asunto"></span>
+          </div>
+
+          <div class="form-row">
+            <label for="cf-mensaje">Mensaje</label>
+            <textarea id="cf-mensaje" name="mensaje" rows="5" required placeholder="Por ejemplo: necesito una laptop para diseño con presupuesto de Q6,000."></textarea>
+            <span class="form-error" data-error-for="cf-mensaje"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Enviar mensaje</button>
+          <p class="form-note">Formulario de demostración: el mensaje no se envía a ningún servidor. Proyecto académico de la Universidad Galileo.</p>
+
+          <div class="form-success" data-form-success hidden>
+            <div class="form-success-icon">✓</div>
+            <h4>¡Mensaje recibido!</h4>
+            <p>Gracias por escribirnos. En un caso real te responderíamos a tu correo en menos de 24 horas hábiles.</p>
+            <button type="button" class="btn btn-outline" data-form-reset>Enviar otro mensaje</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="reveal" style="grid-column:1/-1;">
         <div class="map-frame">
           <iframe
             src="https://www.google.com/maps?q=Universidad+Galileo,+Zona+10,+Guatemala&output=embed"
@@ -140,15 +212,15 @@
         </div>
         <p>Tienda de tecnología en Zona 10, Ciudad de Guatemala. Laptops, PCs, componentes y periféricos con asesoría real.</p>
         <div class="social-row">
-          <a href="#" class="social-btn" aria-label="Facebook" title="Facebook (próximamente)">
+          <span class="social-btn" aria-label="Facebook" title="Facebook (próximamente)">
             <svg viewBox="0 0 24 24"><path d="M13.5 21v-7.6h2.6l.4-3H13.5V8.4c0-.87.24-1.46 1.5-1.46h1.6V4.28C16.3 4.2 15.24 4.1 14 4.1c-2.5 0-4.2 1.53-4.2 4.33v2H7.2v3h2.6V21h3.7z"/></svg>
-          </a>
-          <a href="#" class="social-btn" aria-label="Instagram" title="Instagram (próximamente)">
+          </span>
+          <span class="social-btn" aria-label="Instagram" title="Instagram (próximamente)">
             <svg viewBox="0 0 24 24"><path d="M12 2.2c2.7 0 3 0 4.1.06 1.05.05 1.6.22 2 .37.5.2.86.42 1.24.8.38.38.6.74.8 1.24.15.4.32.95.37 2 .06 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.05 1.05-.22 1.6-.37 2-.2.5-.42.86-.8 1.24-.38.38-.74.6-1.24.8-.4.15-.95.32-2 .37-1.1.06-1.4.06-4.1.06s-3 0-4.1-.06c-1.05-.05-1.6-.22-2-.37-.5-.2-.86-.42-1.24-.8-.38-.38-.6-.74-.8-1.24-.15-.4-.32-.95-.37-2-.06-1.1-.06-1.4-.06-4.1s0-3 .06-4.1c.05-1.05.22-1.6.37-2 .2-.5.42-.86.8-1.24.38-.38.74-.6 1.24-.8.4-.15.95-.32 2-.37 1.1-.06 1.4-.06 4.1-.06M12 0C9.28 0 8.94 0 7.87.07c-1.07.05-1.8.22-2.43.47-.66.26-1.22.6-1.78 1.16C3.1 2.26 2.76 2.82 2.5 3.48c-.25.63-.42 1.36-.47 2.43C2 6.94 2 7.28 2 10s0 3.06.07 4.13c.05 1.06.22 1.8.47 2.43.26.66.6 1.22 1.16 1.78.56.56 1.12.9 1.78 1.16.63.25 1.36.42 2.43.47C8.94 20 9.28 20 12 20s3.06 0 4.13-.07c1.06-.05 1.8-.22 2.43-.47.66-.26 1.22-.6 1.78-1.16.56-.56.9-1.12 1.16-1.78.25-.63.42-1.36.47-2.43.06-1.07.06-1.41.06-4.13s0-3.06-.06-4.13c-.05-1.06-.22-1.8-.47-2.43-.26-.66-.6-1.22-1.16-1.78-.56-.56-1.12-.9-1.78-1.16-.63-.25-1.37-.42-2.43-.47C15.06.02 14.72 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zM18.4 4.36a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
-          </a>
-          <a href="#" class="social-btn" aria-label="TikTok" title="TikTok (próximamente)">
+          </span>
+          <span class="social-btn" aria-label="TikTok" title="TikTok (próximamente)">
             <svg viewBox="0 0 24 24"><path d="M16.6 5.82c-.83-.9-1.29-2.07-1.29-3.32h-3.03v13.44a3.05 3.05 0 1 1-2.17-2.92V9.9a6.17 6.17 0 0 0-.86-.06A6.13 6.13 0 1 0 15 15.94V9.4a8.16 8.16 0 0 0 4.77 1.52V7.9a4.85 4.85 0 0 1-3.17-2.08z"/></svg>
-          </a>
+          </span>
         </div>
       </div>
       <div class="footer-col">
@@ -190,7 +262,7 @@
   </div>
   <div class="cart-items"></div>
   <div class="cart-drawer-foot">
-    <div class="cart-total-row"><span>Total</span><span class="cart-total-value">Q0.00</span></div>
+    <div class="cart-summary" data-cart-summary></div>
     <button type="button" class="btn btn-primary btn-block cart-pay-btn" disabled>Pagar</button>
     <p class="cart-note">Compra simulada con fines académicos. No se procesan pagos reales.</p>
   </div>

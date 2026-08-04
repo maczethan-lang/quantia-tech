@@ -33,6 +33,34 @@
     );
   }
 
+  /* Bloque de "cómo comprar": envío, pago y garantía. La garantía sale de las
+     especificaciones del producto para no contradecir la ficha. */
+  function purchaseInfoHTML(product) {
+    var garantia = "6 meses";
+    product.specs.forEach(function (row) {
+      if (/garant/i.test(row[0])) garantia = row[1];
+    });
+
+    var envio = product.price >= 500
+      ? "Envío gratis a toda Guatemala"
+      : "Envío Q35 · gratis en compras desde Q500";
+
+    var items = [
+      ["Entrega", envio + " · 2 a 4 días hábiles"],
+      ["Retiro en tienda", "Sin costo en Zona 10, disponible al día siguiente"],
+      ["Formas de pago", "Visa, Mastercard, transferencia bancaria o contra entrega"],
+      ["Garantía", garantia + " por defectos de fábrica"],
+    ];
+
+    return (
+      '<ul class="purchase-info">' +
+        items.map(function (i) {
+          return "<li><span>" + i[0] + "</span><span>" + i[1] + "</span></li>";
+        }).join("") +
+      "</ul>"
+    );
+  }
+
   function renderNotFound(container, breadcrumbEl) {
     container.innerHTML =
       '<div class="not-found">' +
@@ -76,6 +104,7 @@
             "</div>" +
             '<button type="button" class="btn btn-primary" data-add-detail>Agregar al carrito</button>' +
           "</div>" +
+          purchaseInfoHTML(product) +
         "</div>" +
       "</div>";
 

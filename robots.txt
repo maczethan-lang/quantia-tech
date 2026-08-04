@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maczethan-lang.github.io/quantia-tech/sitemap.xml

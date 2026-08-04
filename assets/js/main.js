@@ -223,6 +223,20 @@
     return (cart || getCart()).reduce(function (sum, item) { return sum + item.qty * item.price; }, 0);
   }
 
+  /* Política de envío de la tienda: gratis a partir de Q500, si no Q35. */
+  var SHIPPING_FLAT = 35;
+  var FREE_SHIPPING_FROM = 500;
+
+  function shippingFor(subtotal) {
+    if (subtotal <= 0 || subtotal >= FREE_SHIPPING_FROM) return 0;
+    return SHIPPING_FLAT;
+  }
+
+  function orderTotal(cart) {
+    var subtotal = cartTotal(cart);
+    return subtotal + shippingFor(subtotal);
+  }
+
   function addToCart(product) {
     var cart = getCart();
     var existing = cart.find(function (i) { return i.id === product.id; });
@@ -272,9 +286,32 @@
     badgeInitialized = true;
   }
 
+  function renderCartSummary(el, cart) {
+    if (!el) return;
+    var subtotal = cartTotal(cart);
+    var shipping = shippingFor(subtotal);
+    var falta = FREE_SHIPPING_FROM - subtotal;
+
+    var rows =
+      '<div class="cart-summary-row"><span>Subtotal</span><span>' + formatQ(subtotal) + "</span></div>" +
+      '<div class="cart-summary-row"><span>Envío</span><span>' +
+        (shipping === 0 ? '<em class="cart-free">Gratis</em>' : formatQ(shipping)) +
+      "</span></div>";
+
+    if (subtotal > 0 && shipping > 0) {
+      rows += '<p class="cart-shipping-hint">Te faltan ' + formatQ(falta) + " para el envío gratis.</p>";
+    }
+
+    rows +=
+      '<div class="cart-summary-row is-total"><span>Total</span>' +
+      '<span class="cart-total-value">' + formatQ(subtotal + shipping) + "</span></div>";
+
+    el.innerHTML = rows;
+  }
+
   function renderCartDrawer() {
     var itemsEl = document.querySelector(".cart-items");
-    var totalEl = document.querySelector(".cart-total-value");
+    var summaryEl = document.querySelector("[data-cart-summary]");
     var payBtn = document.querySelector(".cart-pay-btn");
     if (!itemsEl) return;
 
@@ -310,7 +347,7 @@
       if (payBtn) payBtn.disabled = false;
     }
 
-    if (totalEl) totalEl.textContent = formatQ(cartTotal(cart));
+    renderCartSummary(summaryEl, cart);
     updateCartBadge();
   }
 
@@ -378,7 +415,7 @@
       var orderId = "QT-" + Math.floor(100000 + Math.random() * 900000);
       orderIdEl.textContent = "Pedido #" + orderId;
     }
-    if (totalEl) totalEl.textContent = formatQ(cartTotal());
+    if (totalEl) totalEl.textContent = formatQ(orderTotal());
     modal.classList.add("open");
 
     var closeBtn = modal.querySelector(".modal-close-btn");
@@ -416,10 +453,101 @@
     updateQty: updateQty,
     clear: clearCart,
     total: cartTotal,
+    shipping: shippingFor,
+    orderTotal: orderTotal,
     count: cartCount,
     formatQ: formatQ,
     render: renderCartDrawer,
   };
+
+  /* -------------------------------- Formulario de contacto -------------------------------- */
+
+  function initContactForm() {
+    var form = document.querySelector("[data-contact-form]");
+    if (!form) return;
+
+    var successEl = form.querySelector("[data-form-success]");
+    var resetBtn = form.querySelector("[data-form-reset]");
+
+    var REGLAS = {
+      "cf-nombre": function (v) {
+        if (!v.trim()) return "Escribe tu nombre.";
+        if (v.trim().length < 3) return "El nombre es muy corto.";
+        return "";
+      },
+      "cf-email": function (v) {
+        if (!v.trim()) return "Escribe tu correo.";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())) return "Ese correo no parece válido.";
+        return "";
+      },
+      "cf-telefono": function (v) {
+        if (!v.trim()) return "";  // opcional
+        if (!/^[\d\s()+-]{8,}$/.test(v.trim())) return "Ese teléfono no parece válido.";
+        return "";
+      },
+      "cf-asunto": function (v) {
+        return v ? "" : "Elige un motivo de contacto.";
+      },
+      "cf-mensaje": function (v) {
+        if (!v.trim()) return "Escribe tu mensaje.";
+        if (v.trim().length < 10) return "Cuéntanos un poco más (mínimo 10 caracteres).";
+        return "";
+      },
+    };
+
+    function validarCampo(id) {
+      var campo = form.querySelector("#" + id);
+      var errorEl = form.querySelector('[data-error-for="' + id + '"]');
+      if (!campo || !REGLAS[id]) return true;
+      var mensaje = REGLAS[id](campo.value);
+      campo.classList.toggle("is-invalid", !!mensaje);
+      campo.setAttribute("aria-invalid", mensaje ? "true" : "false");
+      if (errorEl) errorEl.textContent = mensaje;
+      return !mensaje;
+    }
+
+    Object.keys(REGLAS).forEach(function (id) {
+      var campo = form.querySelector("#" + id);
+      if (!campo) return;
+      // Solo se valida al salir del campo; mientras escribe, se limpia el error.
+      campo.addEventListener("blur", function () { validarCampo(id); });
+      campo.addEventListener("input", function () {
+        if (campo.classList.contains("is-invalid")) validarCampo(id);
+      });
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var ids = Object.keys(REGLAS);
+      var valido = ids.map(validarCampo).every(Boolean);
+
+      if (!valido) {
+        var primero = form.querySelector(".is-invalid");
+        if (primero) { primero.focus(); primero.scrollIntoView({ block: "center", behavior: "smooth" }); }
+        return;
+      }
+
+      // Sitio estático: no hay backend, así que se confirma en pantalla.
+      form.classList.add("is-sent");
+      if (successEl) {
+        successEl.hidden = false;
+        successEl.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+      showToast("Mensaje enviado (simulado). ¡Gracias por escribirnos!");
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", function () {
+        form.reset();
+        form.classList.remove("is-sent");
+        if (successEl) successEl.hidden = true;
+        form.querySelectorAll(".is-invalid").forEach(function (el) { el.classList.remove("is-invalid"); });
+        form.querySelectorAll(".form-error").forEach(function (el) { el.textContent = ""; });
+        var primerCampo = form.querySelector("#cf-nombre");
+        if (primerCampo) primerCampo.focus();
+      });
+    }
+  }
 
   /* -------------------------------- Año en footer -------------------------------- */
 
@@ -435,6 +563,7 @@
     safe(initNavDropdown, "initNavDropdown");
     safe(initReveal, "initReveal");
     safe(initCartDrawer, "initCartDrawer");
+    safe(initContactForm, "initContactForm");
     safe(initYear, "initYear");
     safe(updateCartBadge, "updateCartBadge");
     safe(initScrollProgress, "initScrollProgress");
